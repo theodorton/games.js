@@ -15,7 +15,6 @@ var ballRadius = 10;
 
 var humanPaddle;
 var cpuPaddle;
-var cpuAccuracy = null
 
 var mouseY;
 
@@ -25,7 +24,6 @@ var PAUSED = 3;
 var WON = 4;
 var LOST = 5;
 var state = IDLE;
-var previousState = state;
 
 window.onload = function () {
   canvas = document.getElementById('gameCanvas');
@@ -35,7 +33,7 @@ window.onload = function () {
     y: canvas.height / 2,
     score: 0,
     maxY: 2000,
-  }
+  };
   cpuPaddle = {
     x: canvas.width - 50,
     y: canvas.height / 2,
@@ -54,7 +52,7 @@ window.onload = function () {
     document.body.classList.remove('playing');
     if (event.keyCode === 32 && state !== PLAYING) {
       if (state === WON || state == LOST) {
-        init()
+        init();
       }
       state = PLAYING;
     }
@@ -64,7 +62,7 @@ window.onload = function () {
 
   init();
   requestAnimationFrame(tick);
-}
+};
 
 function init() {
   ballX = 100;
@@ -124,7 +122,6 @@ function handlePhysics(deltaTime) {
 
 function handleAI(deltaTime) {
   const movingLeft = ballVX < 0;
-  const movingRight = !movingLeft;
   const movingUp = ballVY < 0;
   const movingDown = !movingUp;
   if (movingLeft) return;
@@ -148,14 +145,6 @@ function handleAI(deltaTime) {
   }
 
   movePaddle(cpuPaddle, ballY, deltaTime);
-  // const distance = cpuPaddle.x - ballX;
-  // const below = ballX > cpuPaddle.x;
-  // const above = !below;
-  // const movingUp = ballVX < 0;
-  // const movingDown = ballVX > 0;
-  // if (above)
-  // if (movingUp && below) return;
-  // expectedY = ballY + (ballVX / deltaTime) * (distance / deltaTime) + cpuAccuracy * PADDLE_HEIGHT;
 }
 
 function handleBallCollisions() {
@@ -253,30 +242,30 @@ function drawEverything() {
   canvasContext.font = '40px sans-serif';
   canvasContext.textAlign = 'center';
   switch (state) {
-    case WON:
-      canvasContext.fillText(`VICTORY!`, canvas.width / 2, canvas.height / 3);
-      break;
-    case LOST:
-      canvasContext.fillText(`DEFEAT!`, canvas.width / 2, canvas.height / 3);
-      break;
-    case PAUSED:
-      canvasContext.fillText(`Paused`, canvas.width / 2, canvas.height / 3);
-      break;
+  case WON:
+    canvasContext.fillText('VICTORY!', canvas.width / 2, canvas.height / 3);
+    break;
+  case LOST:
+    canvasContext.fillText('DEFEAT!', canvas.width / 2, canvas.height / 3);
+    break;
+  case PAUSED:
+    canvasContext.fillText('Paused', canvas.width / 2, canvas.height / 3);
+    break;
   }
   canvasContext.font = '24px sans-serif';
   switch (state) {
-    case IDLE:
-      canvasContext.fillText(`Press [SPACE] to start`, canvas.width / 2, canvas.height / 2);
-      break;
-    case PAUSED:
-      canvasContext.fillText(`Press [SPACE] to resume`, canvas.width / 2, canvas.height / 2);
-      break;
+  case IDLE:
+    canvasContext.fillText('Press [SPACE] to start', canvas.width / 2, canvas.height / 2);
+    break;
+  case PAUSED:
+    canvasContext.fillText('Press [SPACE] to resume', canvas.width / 2, canvas.height / 2);
+    break;
   }
   canvasContext.font = '12px sans-serif';
   switch (state) {
-    case PLAYING:
-      canvasContext.fillText(`Press [ESC] to pause`, canvas.width / 2, canvas.height - 12);
-      break;
+  case PLAYING:
+    canvasContext.fillText('Press [ESC] to pause', canvas.width / 2, canvas.height - 12);
+    break;
   }
 }
 
