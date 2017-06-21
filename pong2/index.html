@@ -1,0 +1,40 @@
+<html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+<h1>Pong (2 players)</h1>
+<p>
+  Left paddle controls: <kbd>W</kbd> &amp; <kbd>S</kbd>
+  <br>
+  Right paddle conrols: ▲ &amp; ▼.
+</p>
+<canvas id="gameCanvas" width="800" height="600"></canvas>
+
+<script src="./game.js" charset="utf-8"></script>
+<style>
+  html {
+    background: black;
+    font-family: sans-serif;
+    color: #eee;
+    padding: 50px;
+  }
+
+  body.playing {
+    cursor: none;
+  }
+
+  h1, p {
+    text-align: center;
+  }
+
+  #gameCanvas {
+    border: 2px solid gray;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+</body>
+</html>
