@@ -145,7 +145,7 @@ function updatePaths() {
   var distanceY = orangeGhost.y - player.y;
   var distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
   if (distance < 5) {
-    setTarget(orangeGhost, 0, 15);
+    setTarget(orangeGhost, 0, MAP.length);
   } else {
     setTarget(orangeGhost, player.x, player.y);
   }
