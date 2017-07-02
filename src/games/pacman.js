@@ -265,14 +265,63 @@ function render() {
   renderGrid();
   renderPlayer(player);
   ghosts.forEach((ghost) => {
-    renderEntity(ghost);
+    renderGhost(ghost);
     renderTarget(ghost);
   });
 }
 
-function renderEntity(ghost) {
+const eyeSize = 4;
+function renderGhost(ghost) {
+  const origoX = ghost.x * SIZE;
+  const origoY = ghost.y * SIZE;
   ctx.fillStyle = ghost.color;
-  ctx.fillRect(ghost.x * SIZE, ghost.y * SIZE, SIZE, SIZE);
+  ctx.fillRect(origoX, origoY, SIZE, SIZE);
+  const node = ghost.path[2];
+  let direction = null;
+  if (node) {
+    const deltaX = node[0] - ghost.x;
+    const deltaY = node[1] - ghost.y;
+    if (Math.abs(deltaX) > Math.abs(deltaY)) {
+      if (deltaX > 0) {
+        direction = RIGHT;
+      } else if (deltaX < 0) {
+        direction = LEFT;
+      }
+    } else if (Math.abs(deltaX) < Math.abs(deltaY)) {
+      if (deltaY > 0) {
+        direction = DOWN;
+      } else if (deltaY < 0) {
+        direction = UP;
+      }
+    }
+  }
+  renderEyes(ghost, direction);
+}
+
+function renderEyes(ghost, direction) {
+  const origoX = ghost.x * SIZE;
+  const origoY = ghost.y * SIZE;
+  ctx.fillStyle = 'white';
+  ctx.fillRect(origoX + eyeSize/2, origoY + eyeSize, eyeSize*2, eyeSize*2);
+  ctx.fillRect(origoX + SIZE - eyeSize*2.5, origoY + eyeSize, eyeSize*2, eyeSize*2);
+  const pupilOffset = { x: 0, y: 0 };
+  switch (direction) {
+  case UP:
+    pupilOffset.y -= 2;
+    break;
+  case DOWN:
+    pupilOffset.y += 2;
+    break;
+  case LEFT:
+    pupilOffset.x -= 2;
+    break;
+  case RIGHT:
+    pupilOffset.x += 2;
+    break;
+  }
+  ctx.fillStyle = 'blue';
+  ctx.fillRect(origoX + eyeSize + pupilOffset.x, origoY + eyeSize*1.5 + pupilOffset.y, eyeSize, eyeSize);
+  ctx.fillRect(origoX + SIZE - eyeSize*2 + pupilOffset.x, origoY + eyeSize*1.5 + pupilOffset.y, eyeSize, eyeSize);
 }
 
 function renderPlayer(player) {
