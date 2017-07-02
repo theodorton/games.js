@@ -1,0 +1,21 @@
+{
+  "name": "games.js",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Theodor Tonum <theodor@tonum.no>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/theodorton/games.js",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "pathfinding": "^0.4.18"
+  }
+}
