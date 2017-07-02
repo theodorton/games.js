@@ -17,46 +17,22 @@ var COOLDOWN = 0.25;
 var PLAYER_ADVANTAGE = 0.04;
 var DEBUG = false;
 
-var MAP = [
-  // Whitespace for data
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  // Game level
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
-  [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1],
-  [1,0,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,0,1],
-  [1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1],
-  [1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1],
-  [1,1,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,1,1],
-  [1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1],
-  [1,1,1,1,1,1,0,1,1,0,1,1,1,0,0,1,1,1,0,1,1,0,1,1,1,1,1,1],
-  [1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,1,1,1,1,1],
-  [0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0],
-  [1,1,1,1,1,1,0,1,1,0,1,0,0,0,0,0,0,1,0,1,1,0,1,1,1,1,1,1],
-  [1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1],
-  [1,1,1,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,1,1,1,1],
-  [1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1],
-  [1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
-  [1,0,1,1,1,1,0,1,1,1,1,1,0,1,1,0,1,1,1,1,1,0,1,1,1,1,0,1],
-  [1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1],
-  [1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1],
-  [1,1,1,0,1,1,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,0,1,1,0,1,1,1],
-  [1,0,0,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0,0,0,1],
-  [1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1],
-  [1,0,1,1,1,1,1,1,1,1,1,1,0,1,1,0,1,1,1,1,1,1,1,1,1,1,0,1],
-  [1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  // Whitespace for lives and cherry
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-];
+var MAP = loadMap(require('text-loader!./pacman/map1.txt'));
+
+function loadMap(txt) {
+  console.log(`%c${txt}`, 'font-family: monospace');
+  return txt.trim().split('\n').map((line) => {
+    return line.split('');
+  });
+}
+
+function generateGrid(map) {
+  return map.map(line =>
+    line.map(char =>
+      char === 'X' ? 1 : 0
+    )
+  );
+}
 
 window.onload = function () {
   canvas = document.getElementById('gameCanvas');
@@ -88,39 +64,40 @@ function addEventListeners() {
 }
 
 function init() {
-  grid = new PF.Grid(MAP);
+  var gridraw = generateGrid(MAP);
+  grid = new PF.Grid(gridraw);
   finder = new PF.AStarFinder();
   currentDirection;
   player = {
     color: 'yellow',
     x: 14,
-    y: 19,
+    y: 22,
     dx: 0,
     dy: 0,
     cooldown: COOLDOWN,
   };
   ghosts = [{
     color: 'red',
-    x: 12,
-    y: 15,
+    x: 11,
+    y: 12,
     cooldown: COOLDOWN,
     initCooldown: 2,
   },{
     color: 'pink',
-    x: 12,
-    y: 17,
+    x: 11,
+    y: 14,
     cooldown: COOLDOWN,
     initCooldown: 6,
   },{
     color: 'cyan',
-    x: 15,
-    y: 15,
+    x: 16,
+    y: 12,
     cooldown: COOLDOWN,
     initCooldown: 9,
   },{
     color: 'orange',
-    x: 15,
-    y: 17,
+    x: 16,
+    y: 14,
     cooldown: COOLDOWN,
     initCooldown: 12,
   }];
@@ -181,7 +158,7 @@ function getClosestWalkableDot(x, y) {
   var minDistance;
   MAP.forEach((row, y2) => {
     row.forEach((col, x2) => {
-      if (col !== 0) return;
+      if (col === 'X') return;
       var xDistance = Math.abs(x2 - x);
       var yDistance = Math.abs(y2 - y);
       var distance = Math.sqrt(xDistance * xDistance + yDistance * yDistance);
@@ -199,23 +176,30 @@ function getClosestWalkableDot(x, y) {
 }
 
 function moveObjects(deltaTime) {
+  var newDx = 0;
+  var newDy = 0;
   switch (currentDirection) {
   case UP:
-    player.dx = 0;
-    player.dy = -1;
+    newDx = 0;
+    newDy = -1;
     break;
   case RIGHT:
-    player.dx = 1;
-    player.dy = 0;
+    newDx = 1;
+    newDy = 0;
     break;
   case DOWN:
-    player.dx = 0;
-    player.dy = 1;
+    newDx = 0;
+    newDy = 1;
     break;
   case LEFT:
-    player.dx = -1;
-    player.dy = 0;
+    newDx = -1;
+    newDy = 0;
     break;
+  }
+
+  if (MAP[player.y+newDy][player.x+newDx] !== 'X') {
+    player.dx = newDx;
+    player.dy = newDy;
   }
 
   player.cooldown -= deltaTime;
@@ -235,11 +219,11 @@ function moveObjects(deltaTime) {
     } else if (targetY > maxY) {
       targetY = 0;
     }
-    if (MAP[targetY][targetX] === 0) {
+    if (MAP[targetY][targetX] !== 'X') {
       player.x = targetX;
       player.y = targetY;
     }
-    grid.nodes[player.y][player.x].eaten = true;
+    MAP[player.y][player.x] = ' ';
   }
 
   ghosts.forEach((ghost) => {
@@ -261,10 +245,10 @@ function render() {
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
   renderGrid();
-  renderEntity(player);
+  renderPlayer(player);
   ghosts.forEach((ghost) => {
     renderEntity(ghost);
-    if (DEBUG) renderTarget(ghost);
+    renderTarget(ghost);
   });
 }
 
@@ -273,7 +257,21 @@ function renderEntity(ghost) {
   ctx.fillRect(ghost.x * SIZE, ghost.y * SIZE, SIZE, SIZE);
 }
 
+function renderPlayer(player) {
+  var origoX = (player.x+0.5)*SIZE;
+  var origoY = (player.y+0.5)*SIZE;
+  ctx.beginPath();
+  ctx.arc(origoX, origoY, SIZE/2, 2 * Math.PI, false);
+  ctx.fillStyle = 'yellow';
+  ctx.fill();
+  ctx.beginPath();
+  ctx.arc(origoX, origoY, SIZE/2, 1.75 * Math.PI, 2.25 * Math.PI);
+  ctx.fillStyle = 'black';
+  ctx.fill();
+}
+
 function renderTarget(ghost) {
+  if (!DEBUG) return;
   if (!ghost.path) return;
   var max = ghost.path.length - 1;
   if (!ghost.path[max]) return;
@@ -281,13 +279,15 @@ function renderTarget(ghost) {
 }
 
 function renderGrid() {
-  grid.nodes.forEach((rows, y) => {
-    rows.forEach((col, x) => {
-      if (!col.walkable) return;
-      if (col.eaten) {
-        renderDot(x, y, 'gray');
-      } else {
+  MAP.forEach((row, y) => {
+    row.forEach((col, x) => {
+      switch (col) {
+      case '.':
         renderDot(x, y, 'white');
+        break;
+      case 'X':
+        renderWall(x, y);
+        break;
       }
     });
   });
@@ -296,4 +296,9 @@ function renderGrid() {
 function renderDot(x, y, color) {
   ctx.fillStyle = color;
   ctx.fillRect(SIZE * x + SIZE/2 - 2, SIZE * y + SIZE/2 - 2, 4, 4);
+}
+
+function renderWall(x, y) {
+  ctx.fillStyle = 'darkblue';
+  ctx.fillRect(SIZE * x, SIZE * y, SIZE, SIZE);
 }
