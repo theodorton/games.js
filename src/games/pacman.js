@@ -1,4 +1,5 @@
-/* globals PF */
+/* eslint no-undef: 1 */
+var PF = require('pathfinding');
 var canvas;
 var ctx;
 var SIZE = 20;
