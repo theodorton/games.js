@@ -1,5 +1,6 @@
-/* eslint no-undef: 1 */
-var PF = require('pathfinding');
+import PF from 'pathfinding';
+import RAW_MAP from 'text-loader!./pacman/map1.txt';
+
 var canvas;
 var ctx;
 var SIZE = 20;
@@ -20,7 +21,7 @@ var PLAYING = 1;
 var LOST = 2;
 var state = PLAYING;
 
-var MAP = loadMap(require('text-loader!./pacman/map1.txt'));
+var MAP = loadMap(RAW_MAP);
 
 function loadMap(txt) {
   return txt.trim().split('\n').map((line) => {
