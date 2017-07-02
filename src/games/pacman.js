@@ -20,7 +20,6 @@ var DEBUG = false;
 var MAP = loadMap(require('text-loader!./pacman/map1.txt'));
 
 function loadMap(txt) {
-  console.log(`%c${txt}`, 'font-family: monospace');
   return txt.trim().split('\n').map((line) => {
     return line.split('');
   });
