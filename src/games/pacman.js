@@ -16,6 +16,9 @@ var LEFT = 4;
 var COOLDOWN = 0.25;
 var PLAYER_ADVANTAGE = 0.04;
 var DEBUG = false;
+var PLAYING = 1;
+var LOST = 2;
+var state = PLAYING;
 
 var MAP = loadMap(require('text-loader!./pacman/map1.txt'));
 
@@ -74,6 +77,8 @@ function init() {
     dx: 0,
     dy: 0,
     cooldown: COOLDOWN,
+    blinkCooldown: COOLDOWN,
+    visible: true,
   };
   ghosts = [{
     color: 'red',
@@ -104,8 +109,16 @@ function init() {
 
 function update(timestamp) {
   var deltaTime = (timestamp - previousTimestamp) / 1000 || 1/60;
-  updatePaths();
-  moveObjects(deltaTime);
+  if (state === PLAYING) {
+    updatePaths();
+    moveObjects(deltaTime);
+  } else if (state === LOST) {
+    player.blinkCooldown -= deltaTime;
+    if (player.blinkCooldown < 0) {
+      player.blinkCooldown += COOLDOWN;
+      player.visible = !player.visible;
+    }
+  }
   render();
   previousTimestamp = timestamp;
   requestAnimationFrame(update);
@@ -232,8 +245,14 @@ function moveObjects(deltaTime) {
       ghost.cooldown -= deltaTime;
       if (ghost.cooldown < 0 && ghost.path && ghost.path[1]) {
         ghost.cooldown += COOLDOWN;
-        ghost.x = ghost.path[1][0];
-        ghost.y = ghost.path[1][1];
+        const newX = ghost.path[1][0];
+        const newY = ghost.path[1][1];
+        if (newX === player.x && newY === player.y) {
+          state = LOST;
+        } else {
+          ghost.x = newX;
+          ghost.y = newY;
+        }
       }
     }
   });
@@ -257,6 +276,7 @@ function renderEntity(ghost) {
 }
 
 function renderPlayer(player) {
+  if (!player.visible) return;
   var origoX = (player.x+0.5)*SIZE;
   var origoY = (player.y+0.5)*SIZE;
   ctx.beginPath();
