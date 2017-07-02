@@ -3,13 +3,15 @@
   <meta charset="utf-8">
 </head>
 <body>
-<h1>Snake</h1>
+<h1>Pacman</h1>
 <p>
-  Control with arrow keys or AWSD
+  Move using arrow keys.
 </p>
-<canvas id="gameCanvas" width="400" height="300"></canvas>
+<canvas id="gameCanvas" width="300" height="300"></canvas>
 
-<script src="./game.js" charset="utf-8"></script>
+<script src="https://cdn.jsdelivr.net/lodash/4.17.4/lodash.min.js" charset="utf-8"></script>
+<script src="../bower_components/pathfinding/pathfinding-browser.js" charset="utf-8"></script>
+<script src="./pacman.bundle.js" charset="utf-8"></script>
 <style>
   html {
     background: black;

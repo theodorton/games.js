@@ -4,7 +4,12 @@
   "main": "index.js",
   "author": "Theodor Tonum <theodor@tonum.no>",
   "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server"
+  },
   "devDependencies": {
-    "eslint": "^4.0.0"
+    "eslint": "^4.0.0",
+    "webpack": "^3.0.0",
+    "webpack-dev-server": "^2.5.0"
   }
 }
