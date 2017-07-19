@@ -1,0 +1,37 @@
+<html>
+<body>
+<h1>Ballz</h1>
+<p>
+  Controls:
+  <br>
+  Click mouse and drag to aim.
+</p>
+<canvas id="gameCanvas" width="600" height="800"></canvas>
+
+<style>
+  html {
+    background: black;
+    font-family: sans-serif;
+    color: #eee;
+    padding: 50px;
+  }
+
+  body.playing {
+    cursor: none;
+  }
+
+  h1, p {
+    text-align: center;
+  }
+
+  #gameCanvas {
+    border: 2px solid gray;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+<script src="./ballz.bundle.js" charset="utf-8"></script>
+</body>
+</html>
