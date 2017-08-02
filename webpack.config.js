@@ -10,6 +10,7 @@ module.exports = {
     snake: './src/games/snake.js',
     tetris: './src/games/tetris.js',
     dragrace: './src/games/dragrace.js',
+    ballz: './src/games/ballz.js',
   },
   output: {
     filename: '[name].bundle.js',
