@@ -116,13 +116,13 @@ function applyPhysics() {
   var nextX = playerX + playerVX;
   if (nextX < 0) {
     nextX = canvas.width - SIZE;
-  } else if (nextX > canvas.width) {
+  } else if (nextX >= canvas.width) {
     nextX = 0;
   }
   var nextY = playerY + playerVY;
   if (nextY < 0) {
     nextY = canvas.height - SIZE;
-  } else if (nextY > canvas.height) {
+  } else if (nextY >= canvas.height) {
     nextY = 0;
   }
 
