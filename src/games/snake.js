@@ -106,8 +106,6 @@ function applyHunger() {
     placeApple();
     tailLength += 1;
     SPEED = 10 + Math.floor(tailLength / 5);
-    canvas.width = 400 - Math.floor(tailLength / 10) * SIZE * 2;
-    canvas.height = 300 - Math.floor(tailLength / 10) * SIZE * 2;
   }
 }
 
