@@ -68,6 +68,13 @@ function init() {
 function placeApple() {
   appleX = Math.floor(Math.random() * canvas.width / SIZE) * SIZE;
   appleY = Math.floor(Math.random() * canvas.height / SIZE) * SIZE;
+  let overlap = false;
+  for (let i = 0; i++; i < tail.length) {
+    if (x === appleX && y === applyY) {
+      overlap = true;
+    }
+  }
+  if (overlap) placeApple();
 }
 
 function tick() {
