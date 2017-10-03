@@ -15,7 +15,7 @@ var playerX;
 var playerY;
 var playerVX = 0;
 var playerVY = 0;
-var nextDirection;
+var directionQueue = [];
 var UP = 1;
 var DOWN = 2;
 var LEFT = 3;
@@ -32,22 +32,22 @@ window.onload = function () {
     case 37: // Left
     case 65: // A
       if (playerVX > 0) return;
-      nextDirection = LEFT;
+      directionQueue.unshift(LEFT);
       break;
     case 38: // Up
     case 87: // W
       if (playerVY > 0) return;
-      nextDirection = UP;
+      directionQueue.unshift(UP);
       break;
     case 39: // Right
     case 68: // D
       if (playerVX < 0) return;
-      nextDirection = RIGHT;
+      directionQueue.unshift(RIGHT);
       break;
     case 40: // bottom
     case 83: // S
       if (playerVY < 0) return;
-      nextDirection = DOWN;
+      directionQueue.unshift(DOWN);
       break;
     }
   });
@@ -81,7 +81,7 @@ function tick() {
 }
 
 function handleInputs() {
-  switch (nextDirection) {
+  switch (directionQueue.pop()) {
   case UP:
     playerVX = 0;
     playerVY = -SIZE;
@@ -99,7 +99,6 @@ function handleInputs() {
     playerVY = 0;
     break;
   }
-  nextDirection = null;
 }
 
 function applyHunger() {
