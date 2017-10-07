@@ -1,5 +1,6 @@
 import PF from 'pathfinding';
 import RAW_MAP from 'text-loader!./pacman/map1.txt';
+import addControls from '../lib/addControls';
 
 var canvas;
 var ctx;
@@ -48,20 +49,18 @@ window.onload = function () {
 };
 
 function addEventListeners() {
-  document.addEventListener('keydown', (event) => {
-    switch (event.keyCode) {
-    case 37: // LEFT
-      currentDirection = LEFT;
-      break;
-    case 38: // UP
+  addControls({
+    north() {
       currentDirection = UP;
-      break;
-    case 39: // RIGHT
+    },
+    east() {
       currentDirection = RIGHT;
-      break;
-    case 40: // DOWN
+    },
+    south() {
       currentDirection = DOWN;
-      break;
+    },
+    west() {
+      currentDirection = LEFT;
     }
   });
 }

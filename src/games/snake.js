@@ -1,4 +1,5 @@
 import addControls from '../lib/addControls';
+import preventZoom from '../lib/preventZoom';
 
 var canvas;
 var ctx;
@@ -26,18 +27,12 @@ var RIGHT = 4;
 var appleX;
 var appleY;
 
-function preventZoomOnIOs() {
-  document.addEventListener('gesturestart', function (e) {
-    e.preventDefault();
-  });
-}
-
 window.onload = function () {
   canvas = document.getElementById('gameCanvas');
   canvas.width = Math.min(320, Math.floor((window.innerWidth - SIZE) / SIZE) * SIZE);
   canvas.height = Math.min(320, Math.floor((window.innerHeight - SIZE) / SIZE) * SIZE);
   ctx = canvas.getContext('2d');
-  preventZoomOnIOs();
+  preventZoom();
   addControls({
     west() {
       if (playerVX > 0) return;
