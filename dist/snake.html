@@ -1,6 +1,7 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no">
 </head>
 <body>
 <h1>Snake</h1>
@@ -15,7 +16,6 @@
     background: black;
     font-family: sans-serif;
     color: #eee;
-    padding: 50px;
   }
 
   body.playing {
@@ -26,12 +26,26 @@
     text-align: center;
   }
 
+  p {
+    display: none;
+  }
+
   #gameCanvas {
     border: 2px solid gray;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+  }
+
+  @media (min-width: 768px) {
+    body {
+      padding: 50px;
+    }
+
+    p {
+      display: block;
+    }
   }
 </style>
 </body>

@@ -1,3 +1,5 @@
+import addControls from '../lib/addControls';
+
 var canvas;
 var ctx;
 
@@ -24,32 +26,35 @@ var RIGHT = 4;
 var appleX;
 var appleY;
 
+function preventZoomOnIOs() {
+  document.addEventListener('gesturestart', function (e) {
+    e.preventDefault();
+  });
+}
+
 window.onload = function () {
   canvas = document.getElementById('gameCanvas');
+  canvas.width = Math.min(320, Math.floor((window.innerWidth - SIZE) / SIZE) * SIZE);
+  canvas.height = Math.min(320, Math.floor((window.innerHeight - SIZE) / SIZE) * SIZE);
   ctx = canvas.getContext('2d');
-  document.addEventListener('keydown', (event) => {
-    switch (event.keyCode) {
-    case 37: // Left
-    case 65: // A
+  preventZoomOnIOs();
+  addControls({
+    west() {
       if (playerVX > 0) return;
       directionQueue.unshift(LEFT);
-      break;
-    case 38: // Up
-    case 87: // W
+    },
+    north() {
       if (playerVY > 0) return;
       directionQueue.unshift(UP);
-      break;
-    case 39: // Right
-    case 68: // D
+    },
+    east() {
       if (playerVX < 0) return;
       directionQueue.unshift(RIGHT);
-      break;
-    case 40: // bottom
-    case 83: // S
+    },
+    south() {
       if (playerVY < 0) return;
       directionQueue.unshift(DOWN);
-      break;
-    }
+    },
   });
   init();
   requestAnimationFrame(tick);
@@ -70,7 +75,7 @@ function placeApple() {
   appleY = Math.floor(Math.random() * canvas.height / SIZE) * SIZE;
   let overlap = false;
   for (let i = 0; i++; i < tail.length) {
-    if (x === appleX && y === applyY) {
+    if (tail.x === appleX && tail.y === appleY) {
       overlap = true;
     }
   }
