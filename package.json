@@ -5,7 +5,7 @@
   "author": "Theodor Tonum <theodor@tonum.no>",
   "license": "MIT",
   "scripts": {
-    "heroku-postbuild": "webpack -p --config ./webpack.config.js --progress"
+    "deploy": "webpack -p --config ./webpack.config.js --progress; netlify deploy"
   },
   "dependencies": {
     "babel-core": "^6.25.0",
