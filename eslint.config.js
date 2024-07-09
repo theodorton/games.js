@@ -1,13 +1,13 @@
 module.exports = {
-    "env": {
-        "browser": true,
-        "es6": true
-    },
-    "parser": "babel-eslint",
-    "parserOptions": {
-        "sourceType": "module"
-    },
-    "extends": "eslint:recommended",
+    root: true,
+    parser: 'hermes-eslint',
+    plugins: [
+        'ft-flow'
+    ],
+    extends: [
+        'eslint:recommended',
+        'plugin:ft-flow/recommended',
+    ],
     "rules": {
         "indent": [
             "error",
