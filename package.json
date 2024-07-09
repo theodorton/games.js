@@ -5,7 +5,9 @@
   "author": "Theodor Tonum <theodor@tonum.no>",
   "license": "MIT",
   "scripts": {
-    "deploy": "webpack -p --config ./webpack.config.js --progress; netlify deploy"
+    "dev": "webpack --watch",
+    "build": "webpack -p --progress",
+    "deploy": "yarn build && netlify deploy"
   },
   "dependencies": {
     "babel-core": "^6.25.0",
